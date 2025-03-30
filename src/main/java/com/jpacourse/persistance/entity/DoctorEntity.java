@@ -3,6 +3,8 @@ package com.jpacourse.persistance.entity;
 import com.jpacourse.persistance.enums.Specialization;
 
 import jakarta.persistence.*;
+import java.util.List;
+
 
 @Entity
 @Table(name = "DOCTOR")
@@ -85,5 +87,14 @@ public class DoctorEntity {
 	public void setSpecialization(Specialization specialization) {
 		this.specialization = specialization;
 	}
+
+	// relacja jednostronna – Doctor -> Address
+	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	@JoinColumn(name = "address_id", nullable = false)
+	private AddressEntity address;
+
+	// relacja dwustronna – Doctor <-> Visit
+	@OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+	private List<VisitEntity> visits;
 
 }

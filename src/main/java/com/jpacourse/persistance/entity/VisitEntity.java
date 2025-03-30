@@ -1,7 +1,7 @@
 package com.jpacourse.persistance.entity;
 
 import java.time.LocalDateTime;
-
+import java.util.List;
 import jakarta.persistence.*;
 
 @Entity
@@ -40,5 +40,20 @@ public class VisitEntity {
 	public void setTime(LocalDateTime time) {
 		this.time = time;
 	}
+
+	// relacja dwustronna – Visit <-> Doctor
+	@ManyToOne
+	@JoinColumn(name = "doctor_id", nullable = false)
+	private DoctorEntity doctor;
+
+	// relacja dwustronna – Visit <-> Patient
+	@ManyToOne
+	@JoinColumn(name = "patient_id", nullable = false)
+	private PatientEntity patient;
+
+	// relacja jednostronna – Visit -> MedicalTreatment
+	@OneToMany(mappedBy = "visit", cascade = CascadeType.ALL)
+	private List<MedicalTreatmentEntity> treatments;
+
 
 }
