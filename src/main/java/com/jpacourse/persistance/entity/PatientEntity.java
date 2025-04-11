@@ -1,9 +1,12 @@
 package com.jpacourse.persistance.entity;
 
-import java.time.LocalDate;
-import java.util.List;
-
 import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "PATIENT")
@@ -29,6 +32,21 @@ public class PatientEntity {
 
 	@Column(nullable = false)
 	private LocalDate dateOfBirth;
+
+	private boolean insured;
+
+	@Version
+	private Long version;
+
+	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	@JoinColumn(name = "address_id", nullable = false)
+	private AddressEntity address;
+
+	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SELECT) // Zmień na JOIN do testów
+	private List<VisitEntity> visits = new ArrayList<>();
+
+	// --- Gettery i settery ---
 
 	public Long getId() {
 		return id;
@@ -86,14 +104,27 @@ public class PatientEntity {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	// relacja jednostronna – Patient -> Address
-	@ManyToOne(optional = false, cascade = CascadeType.ALL)
-	@JoinColumn(name = "address_id", nullable = false)
-	private AddressEntity address;
+	public boolean isInsured() {
+		return insured;
+	}
 
-	// relacja dwustronna – Patient <-> Visit
-	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
-	private List<VisitEntity> visits;
+	public void setInsured(boolean insured) {
+		this.insured = insured;
+	}
 
+	public AddressEntity getAddress() {
+		return address;
+	}
 
+	public void setAddress(AddressEntity address) {
+		this.address = address;
+	}
+
+	public List<VisitEntity> getVisits() {
+		return visits;
+	}
+
+	public void setVisits(List<VisitEntity> visits) {
+		this.visits = visits;
+	}
 }
