@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface VisitRepository extends JpaRepository<VisitEntity, Long> {
 
-    // 2. Znajdź wszystkie wizyty pacjenta po jego ID
+
     @Query("SELECT v FROM VisitEntity v WHERE v.patient.id = :patientId")
     List<VisitEntity> findAllByPatientId(@Param("patientId") Long patientId);
 }
