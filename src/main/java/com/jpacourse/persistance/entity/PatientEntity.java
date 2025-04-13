@@ -43,7 +43,7 @@ public class PatientEntity {
 	private AddressEntity address;
 
 	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SELECT)
 	private List<VisitEntity> visits = new ArrayList<>();
 
 	// --- Gettery i settery ---
