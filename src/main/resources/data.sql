@@ -1,7 +1,7 @@
 ALTER TABLE PATIENT ADD COLUMN registration_date DATE;
 UPDATE PATIENT SET registration_date = '2023-01-10' WHERE id = 1;
 UPDATE PATIENT SET registration_date = '2023-06-15' WHERE id = 2;
-UPDATE PATIENT SET registration_date = '2024-12-01' WHERE id = 3;
+UPDATE PATIENT SET registration_date = '2024-12-02' WHERE id = 3;
 
 
 -- Dummy adres (możesz go wywalić jak niepotrzebny)
