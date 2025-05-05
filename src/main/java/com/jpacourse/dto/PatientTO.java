@@ -1,5 +1,6 @@
 package com.jpacourse.dto;
 
+import java.time.LocalDate;
 import java.util.List;
 import com.jpacourse.dto.VisitTO;
 
@@ -9,6 +10,16 @@ public class PatientTO {
     private String lastName;
     private boolean insured;
     private List<VisitTO> visits;
+    private LocalDate registrationDate;
+
+    public LocalDate getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(LocalDate registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
 
     public Long getId() {
         return id;

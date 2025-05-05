@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,10 @@ public class PatientEntity {
 	@Column(nullable = false)
 	private LocalDate dateOfBirth;
 
+	@Column(nullable = false)
+	private LocalDate registrationDate;
+
+
 	private boolean insured;
 
 	@Version
@@ -54,6 +59,14 @@ public class PatientEntity {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public LocalDate getRegistrationDate() {
+		return registrationDate;
+	}
+
+	public void setRegistrationDate(LocalDate registrationDate) {
+		this.registrationDate = registrationDate;
 	}
 
 	public String getFirstName() {
@@ -128,3 +141,7 @@ public class PatientEntity {
 		this.visits = visits;
 	}
 }
+
+//Różnica pomiędzy JOIN a SELECT:
+// Select wykonuje wiele osobnych zapytań na SELECT * FROM visit WHERE patient_id
+// Join wydaje się dużo bardziej wydajne, gdzie stosowane jest zapytanie LEFT JOIN visit v ON v.patient_id = p.id

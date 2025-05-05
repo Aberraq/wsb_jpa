@@ -11,6 +11,7 @@ public class AddressEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+
 	private String city;
 
 	private String addressLine1;

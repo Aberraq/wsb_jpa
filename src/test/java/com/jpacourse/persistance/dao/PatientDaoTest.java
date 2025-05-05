@@ -12,12 +12,12 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 @Component
-public class PatientDao {
+public class PatientDaoTest {
 
     private final PatientRepository patientRepository;
     private final DoctorRepository doctorRepository;
 
-    public PatientDao(PatientRepository patientRepository, DoctorRepository doctorRepository) {
+    public PatientDaoTest(PatientRepository patientRepository, DoctorRepository doctorRepository) {
         this.patientRepository = patientRepository;
         this.doctorRepository = doctorRepository;
     }

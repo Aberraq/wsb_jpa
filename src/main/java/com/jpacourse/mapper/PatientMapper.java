@@ -25,6 +25,7 @@ public class PatientMapper {
         to.setFirstName(entity.getFirstName());
         to.setLastName(entity.getLastName());
         to.setInsured(entity.isInsured());
+        to.setRegistrationDate(entity.getRegistrationDate());
 
         List<VisitTO> visits = entity.getVisits()
                 .stream()
@@ -34,6 +35,7 @@ public class PatientMapper {
         to.setVisits(visits);
         return to;
     }
+
 
     public PatientEntity mapToEntity(PatientTO to) {
         throw new UnsupportedOperationException("Mapping from TO to entity not implemented.");

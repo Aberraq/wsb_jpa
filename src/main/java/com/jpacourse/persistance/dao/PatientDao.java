@@ -9,13 +9,21 @@ import com.jpacourse.repository.DoctorRepository;
 
 import org.springframework.stereotype.Component;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Component
 public class PatientDao {
 
     private final PatientRepository patientRepository;
     private final DoctorRepository doctorRepository;
+
+    @PersistenceContext
+    private EntityManager em;
 
     public PatientDao(PatientRepository patientRepository, DoctorRepository doctorRepository) {
         this.patientRepository = patientRepository;
@@ -34,5 +42,26 @@ public class PatientDao {
 
         patient.getVisits().add(visit);
         patientRepository.save(patient);
+    }
+
+    
+    public List<PatientEntity> findByLastName(String lastName) {
+        return em.createQuery("SELECT p FROM PatientEntity p WHERE p.lastName = :lastName", PatientEntity.class)
+                .setParameter("lastName", lastName)
+                .getResultList();
+    }
+
+
+    public List<PatientEntity> findWithMoreThanXVisits(long x) {
+        return em.createQuery("SELECT p FROM PatientEntity p WHERE SIZE(p.visits) > :x", PatientEntity.class)
+                .setParameter("x", x)
+                .getResultList();
+    }
+
+
+    public List<PatientEntity> findRegisteredBefore(LocalDate date) {
+        return em.createQuery("SELECT p FROM PatientEntity p WHERE p.registrationDate < :date", PatientEntity.class)
+                .setParameter("date", date)
+                .getResultList();
     }
 }

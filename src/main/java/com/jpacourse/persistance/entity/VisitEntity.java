@@ -52,7 +52,7 @@ public class VisitEntity {
 	private PatientEntity patient;
 
 	// relacja jednostronna – Visit -> MedicalTreatment
-	@OneToMany(mappedBy = "visit", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "visit", fetch = FetchType.EAGER)
 	private List<MedicalTreatmentEntity> treatments;
 	public DoctorEntity getDoctor() {
 		return doctor;
